@@ -1,9 +1,12 @@
-package com.example.bookstore;
+package com.soprasteria.bookstore.service;
 
+import com.soprasteria.bookstore.model.Book;
+import com.soprasteria.bookstore.repository.BookRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import java.util.Arrays;
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 

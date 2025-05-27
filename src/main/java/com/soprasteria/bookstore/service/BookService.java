@@ -1,5 +1,7 @@
-package com.example.bookstore;
+package com.soprasteria.bookstore.service;
 
+import com.soprasteria.bookstore.model.Book;
+import com.soprasteria.bookstore.repository.BookRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 

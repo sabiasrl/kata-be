@@ -1,5 +1,7 @@
-package com.example.bookstore;
+package com.soprasteria.bookstore.controller;
 
+import com.soprasteria.bookstore.service.CartService;
+import com.soprasteria.bookstore.model.Cart;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

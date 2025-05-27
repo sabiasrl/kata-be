@@ -1,5 +1,7 @@
-package com.example.bookstore;
+package com.soprasteria.bookstore.controller;
 
+import com.soprasteria.bookstore.model.Book;
+import com.soprasteria.bookstore.repository.BookRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;

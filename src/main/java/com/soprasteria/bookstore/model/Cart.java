@@ -1,4 +1,4 @@
-package com.example.bookstore;
+package com.soprasteria.bookstore.model;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;

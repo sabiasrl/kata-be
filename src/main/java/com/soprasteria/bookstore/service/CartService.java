@@ -1,5 +1,7 @@
-package com.example.bookstore;
+package com.soprasteria.bookstore.service;
 
+import com.soprasteria.bookstore.model.*;
+import com.soprasteria.bookstore.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
