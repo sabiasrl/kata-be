@@ -7,6 +7,7 @@ This is the backend REST API for the Online Bookstore project.
 - RESTful API for books, cart, orders, and users
 - H2 in-memory database for development
 - JWT-based authentication
+- OpenAPI/Swagger documentation (configurable description via `openapi.description` in `application.properties`)
 - TDD with JUnit and Mockito
 
 ## Getting Started
@@ -20,6 +21,10 @@ This is the backend REST API for the Online Bookstore project.
 ./mvnw spring-boot:run
 ```
 The API will be available at `http://localhost:8080`.
+
+### OpenAPI/Swagger UI
+- Visit [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) or [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) to view and test the API documentation.
+- The API description is set via the `openapi.description` property in `src/main/resources/application.properties`.
 
 ### Running Tests
 ```bash
@@ -39,6 +44,7 @@ The API will be available at `http://localhost:8080`.
 ### Notes
 - Uses H2 database for development (see `src/main/resources/application.properties`).
 - Update database config for production use.
+- OpenAPI config is in `com.soprasteria.bookstore.config.OpenApiConfig`.
 
 ### TDD
 - Write tests before implementing features.
