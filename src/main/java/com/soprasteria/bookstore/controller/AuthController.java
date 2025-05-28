@@ -2,6 +2,8 @@ package com.soprasteria.bookstore.controller;
 
 import com.soprasteria.bookstore.model.User;
 import com.soprasteria.bookstore.service.UserService;
+import com.soprasteria.bookstore.vo.UserVO;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Map;
@@ -16,9 +18,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(String username, String password) {
+    public ResponseEntity<?> register(@RequestBody UserVO userVO) {
         try {
-            User user = userService.register(username, password);
+            User user = userService.register(userVO.getUsername(), userVO.getPassword());
             return ResponseEntity.ok(user);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -26,8 +28,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(String username, String password) {
-        return userService.authenticate(username, password)
+    public ResponseEntity<?> login(@RequestBody UserVO userVO) {
+        return userService.authenticate(userVO.getUsername(), userVO.getPassword())
                 .map(user -> ResponseEntity.ok("Login successful"))
                 .orElseGet(() -> ResponseEntity.status(401).body("Invalid credentials"));
     }
