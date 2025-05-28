@@ -2,9 +2,11 @@ package com.soprasteria.bookstore.model;
 
 import jakarta.persistence.*;
 import java.util.List;
+import lombok.Data;
 
 @Entity
 @Table(name = "orders")
+@Data
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +22,4 @@ public class Order {
         this.items = items;
         this.total = total;
     }
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public List<CartItem> getItems() { return items; }
-    public void setItems(List<CartItem> items) { this.items = items; }
-    public Double getTotal() { return total; }
-    public void setTotal(Double total) { this.total = total; }
 }

@@ -1,10 +1,13 @@
 package com.soprasteria.bookstore.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Data
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,9 +18,4 @@ public class Cart {
     private List<CartItem> items = new ArrayList<>();
 
     public Cart() {}
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public List<CartItem> getItems() { return items; }
-    public void setItems(List<CartItem> items) { this.items = items; }
 }

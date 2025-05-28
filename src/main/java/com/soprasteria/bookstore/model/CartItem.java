@@ -1,7 +1,9 @@
 package com.soprasteria.bookstore.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
+@Data
 @Entity
 public class CartItem {
     @Id
@@ -18,11 +20,4 @@ public class CartItem {
         this.book = book;
         this.quantity = quantity;
     }
-
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public Book getBook() { return book; }
-    public void setBook(Book book) { this.book = book; }
-    public int getQuantity() { return quantity; }
-    public void setQuantity(int quantity) { this.quantity = quantity; }
 }
