@@ -41,6 +41,15 @@ The API will be available at `http://localhost:8080`.
 - `POST /auth/register` - Register user
 - `POST /auth/login` - Login user
 
+### Database Initialization with Sample Fantasy Books
+To prepopulate the database with 100 top fantasy books (including Tolkien and other major fantasy authors), run the backend with the `acc` Spring profile enabled:
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=acc
+```
+
+This will insert the sample data only if the database is empty. The data initializer will not run unless the `acc` profile is active.
+
 ### Notes
 - Uses H2 database for development (see `src/main/resources/application.properties`).
 - Update database config for production use.
