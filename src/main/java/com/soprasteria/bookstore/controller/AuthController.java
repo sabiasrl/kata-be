@@ -16,9 +16,9 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody Map<String, String> body) {
+    public ResponseEntity<?> register(String username, String password) {
         try {
-            User user = userService.register(body.get("username"), body.get("password"));
+            User user = userService.register(username, password);
             return ResponseEntity.ok(user);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -26,8 +26,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Map<String, String> body) {
-        return userService.authenticate(body.get("username"), body.get("password"))
+    public ResponseEntity<?> login(String username, String password) {
+        return userService.authenticate(username, password)
                 .map(user -> ResponseEntity.ok("Login successful"))
                 .orElseGet(() -> ResponseEntity.status(401).body("Invalid credentials"));
     }
