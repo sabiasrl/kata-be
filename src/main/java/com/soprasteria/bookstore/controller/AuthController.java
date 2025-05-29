@@ -7,6 +7,8 @@ import com.soprasteria.bookstore.vo.UserVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -29,7 +31,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserVO userVO) {
         return userService.authenticate(userVO.getUsername(), userVO.getPassword())
-                .map(user -> ResponseEntity.ok("Login successful"))
-                .orElseGet(() -> ResponseEntity.status(401).body("Invalid credentials"));
+                .<ResponseEntity<?>>map(user -> {
+                    UserVO response = new UserVO();
+                    response.setUsername(user.getUsername());
+                    return ResponseEntity.ok(response);
+                })
+                .orElseGet(() -> {
+                    HashMap<String, String> error = new HashMap<>();
+                    error.put("error", "Invalid credentials");
+                    return ResponseEntity.status(401).body(error);
+                });
     }
 }
