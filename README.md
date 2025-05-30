@@ -29,14 +29,14 @@ The API will be available at `http://localhost:8080`.
 - Visit [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) to view and test the API documentation.
 
 ### API Endpoints
-- `GET /books` - List all books
-- `POST /cart/add` - Add book to cart
-- `PUT /cart/update` - Update cart item quantity
-- `DELETE /cart/remove` - Remove item from cart
-- `GET /cart` - Get cart contents
-- `POST /order/checkout` - Checkout order
 - `POST /auth/register` - Register user
 - `POST /auth/login` - Login user
+- `GET /books` - List all books
+- `POST /cart` - Add book to cart
+- `GET /cart` - Get cart contents
+- `PUT /cart` - Update cart item quantity
+- `DELETE /cart` - Remove item from cart
+- `POST /order/checkout` - Checkout order
 
 ### Notes
 - Uses H2 database for development (see `src/main/resources/application.properties`).
