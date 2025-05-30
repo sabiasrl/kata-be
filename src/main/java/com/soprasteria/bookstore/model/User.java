@@ -12,8 +12,7 @@ public class User {
     private Long id;
     private String username;
     private String password;
-    // Add more fields as needed (e.g., roles, email)
-
+    private String role = "USER";
     public User() {}
     public User(String username, String password) {
         this.username = username;

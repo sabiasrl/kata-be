@@ -10,4 +10,6 @@ public class UserVO {
     private Long id;
     private String username;
     private String password;
+    @JsonIgnore
+    private String role;
 }

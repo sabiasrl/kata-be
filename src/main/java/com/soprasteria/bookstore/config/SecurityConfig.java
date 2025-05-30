@@ -1,7 +1,10 @@
 package com.soprasteria.bookstore.config;
 
+import com.soprasteria.bookstore.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.Customizer;
@@ -11,18 +14,21 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+    private final CustomUserDetailsService userDetailsService;
+
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/books/**").permitAll()
-                        .requestMatchers("/cart/**").permitAll()
-                        .requestMatchers("/order/**").permitAll()
-                        .requestMatchers("/swagger-ui/index.html").permitAll()
-                        .requestMatchers("/v3/api-docs/**").permitAll() // allow OpenAPI docs
-                        .anyRequest().anonymous())
+                        .requestMatchers("/cart/**").hasRole("USER")
+                        .requestMatchers("/order/**").hasRole("USER")
+                        // .requestMatchers("/swagger-ui/index.html").permitAll()
+                        // .requestMatchers("/v3/api-docs/**").permitAll()
+                        .anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(request -> {
                     var config = new org.springframework.web.cors.CorsConfiguration();
@@ -34,6 +40,15 @@ public class SecurityConfig {
                 }))
                 .httpBasic(Customizer.withDefaults());
         return http.build();
+    }
+
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authBuilder.userDetailsService(userDetailsService)
+                   .passwordEncoder(passwordEncoder());
+        return authBuilder.build();
     }
 
     @Bean

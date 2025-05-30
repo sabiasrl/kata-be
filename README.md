@@ -28,11 +28,6 @@ The API will be available at `http://localhost:8080`.
 ### OpenAPI/Swagger UI
 - Visit [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html) to view and test the API documentation.
 
-### Running Tests
-```bash
-./mvnw test
-```
-
 ### API Endpoints
 - `GET /books` - List all books
 - `POST /cart/add` - Add book to cart
@@ -46,9 +41,5 @@ The API will be available at `http://localhost:8080`.
 ### Notes
 - Uses H2 database for development (see `src/main/resources/application.properties`).
 - Update database config for production use.
-- OpenAPI config is in `com.soprasteria.bookstore.config.OpenApiConfig`.
-
-### TDD
-- Write tests before implementing features.
 
 ---
