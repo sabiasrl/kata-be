@@ -11,10 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/order")
 public class OrderController {
     private final OrderService orderService;
+    private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
@@ -31,8 +35,10 @@ public class OrderController {
     public ResponseEntity<Order> checkout(@RequestParam Long cartId) {
         Order order = orderService.checkout(cartId);
         if (order == null) {
+            logger.info("Checkout failed: cartId={} not found", cartId);
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found");
         }
+        logger.info("Order created for cartId={}, orderId={}", cartId, order.getId());
         return ResponseEntity.ok(order);
     }
 }

@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
     private final UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -22,6 +26,7 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody UserVO userVO) {
         try {
             User user = userService.register(userVO.getUsername(), userVO.getPassword());
+            logger.info("User registered: {}", user.getUsername());
             return ResponseEntity.ok(user);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -34,6 +39,7 @@ public class AuthController {
                 .<ResponseEntity<?>>map(user -> {
                     UserVO response = new UserVO();
                     response.setUsername(user.getUsername());
+                    logger.info("User logged in: {}", user.getUsername());
                     return ResponseEntity.ok(response);
                 })
                 .orElseGet(() -> {
