@@ -21,8 +21,8 @@ public class CartService {
     }
 
     @Transactional
-    public Cart addToCart(Long cartId, Long bookId, int quantity) {
-        Cart cart = cartRepository.findById(cartId).orElseGet(Cart::new);
+    public Cart addToCart(Long bookId, int quantity) {
+        Cart cart = new Cart();
         Optional<CartItem> existingItem = cart.getItems().stream()
                 .filter(item -> item.getBook().getId().equals(bookId))
                 .findFirst();
@@ -42,7 +42,12 @@ public class CartService {
         cart.getItems().stream()
                 .filter(item -> item.getBook().getId().equals(bookId))
                 .findFirst()
-                .ifPresent(item -> item.setQuantity(quantity));
+                .ifPresentOrElse(item -> item.setQuantity(quantity),
+                    () -> {
+                        Book book = bookRepository.findById(bookId)
+                                .orElseThrow(() -> new IllegalArgumentException("Book not found"));
+                        cart.getItems().add(new CartItem(book, quantity));
+                    });
         return cartRepository.save(cart);
     }
 

@@ -8,6 +8,8 @@ import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 
 @OpenAPIDefinition(
     info = @Info(
@@ -19,6 +21,11 @@ import org.springframework.context.annotation.Configuration;
     )
 )
 @Configuration
+@SecurityScheme(
+    name = "basicAuth",
+    type = SecuritySchemeType.HTTP,
+    scheme = "basic"
+)
 public class OpenApiConfig {
     @Value("${openapi.title:Online Bookstore API}")
     private String apiTitle;

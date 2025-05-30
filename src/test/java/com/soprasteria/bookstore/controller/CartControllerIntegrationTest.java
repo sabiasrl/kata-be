@@ -59,7 +59,7 @@ class CartControllerIntegrationTest {
         book = bookRepository.save(book);
         Cart cart = new Cart();
         cart = cartRepository.save(cart);
-        mockMvc.perform(MockMvcRequestBuilders.post("/cart/" + cart.getId() + "/add")
+        mockMvc.perform(MockMvcRequestBuilders.post("/cart")
                 .param("bookId", book.getId().toString())
                 .param("quantity", "2")
                 .accept(MediaType.APPLICATION_JSON)
@@ -78,7 +78,7 @@ class CartControllerIntegrationTest {
         CartItem item = new CartItem(book, 1);
         cart.getItems().add(item);
         cart = cartRepository.save(cart);
-        mockMvc.perform(MockMvcRequestBuilders.put("/cart/" + cart.getId() + "/update")
+        mockMvc.perform(MockMvcRequestBuilders.put("/cart/" + cart.getId())
                 .param("bookId", book.getId().toString())
                 .param("quantity", "5")
                 .accept(MediaType.APPLICATION_JSON)
@@ -95,7 +95,7 @@ class CartControllerIntegrationTest {
         CartItem item = new CartItem(book, 1);
         cart.getItems().add(item);
         cart = cartRepository.save(cart);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/cart/" + cart.getId() + "/remove")
+        mockMvc.perform(MockMvcRequestBuilders.delete("/cart/" + cart.getId())
                 .param("bookId", book.getId().toString())
                 .accept(MediaType.APPLICATION_JSON)
                 .with(org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic("admin", "secret")))

@@ -32,16 +32,12 @@ class CartServiceTest {
 
     @Test
     void addToCart_shouldAddNewItem() {
-        Long cartId = 1L;
         Long bookId = 2L;
         Book book = new Book("Test Book", "Author", 10.0);
         book.setId(bookId);
-        Cart cart = new Cart();
-        cart.setId(cartId);
-        when(cartRepository.findById(cartId)).thenReturn(Optional.of(cart));
         when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
         when(cartRepository.save(any(Cart.class))).thenAnswer(i -> i.getArgument(0));
-        Cart result = cartService.addToCart(cartId, bookId, 1);
+        Cart result = cartService.addToCart(bookId, 1);
         assertEquals(1, result.getItems().size());
         assertEquals(bookId, result.getItems().get(0).getBook().getId());
         assertEquals(1, result.getItems().get(0).getQuantity());
@@ -77,5 +73,23 @@ class CartServiceTest {
         when(cartRepository.save(any(Cart.class))).thenAnswer(i -> i.getArgument(0));
         Cart result = cartService.removeCartItem(cartId, bookId);
         assertTrue(result.getItems().isEmpty());
+    }
+
+    @Test
+    void updateCartItem_shouldAddIfNotExists() {
+        Long cartId = 1L;
+        Long bookId = 2L;
+        Book book = new Book("Test Book", "Author", 10.0);
+        book.setId(bookId);
+        Cart cart = new Cart();
+        cart.setId(cartId);
+        cart.setItems(new java.util.ArrayList<>()); // No items initially
+        when(cartRepository.findById(cartId)).thenReturn(Optional.of(cart));
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(book));
+        when(cartRepository.save(any(Cart.class))).thenAnswer(i -> i.getArgument(0));
+        Cart result = cartService.updateCartItem(cartId, bookId, 3);
+        assertEquals(1, result.getItems().size());
+        assertEquals(bookId, result.getItems().get(0).getBook().getId());
+        assertEquals(3, result.getItems().get(0).getQuantity());
     }
 }
