@@ -1,4 +1,4 @@
-# Online Bookstore Backend (Spring Boot)
+# KATA - Online Bookstore - Backend (Spring Boot)
 
 This is the backend REST API for the Online Bookstore project.
 
@@ -6,7 +6,6 @@ This is the backend REST API for the Online Bookstore project.
 - Spring Boot (Java 17)
 - RESTful API for books, cart, orders, and users
 - H2 in-memory database for development
-- JWT-based authentication
 - OpenAPI/Swagger documentation (configurable description via `openapi.description` in `application.properties`)
 - TDD with JUnit and Mockito
 
@@ -21,7 +20,7 @@ This is the backend REST API for the Online Bookstore project.
 ./mvnw clean install && ./mvnw spring-boot:run -Dspring-boot.run.profiles=acc
 ```
 
-For Acceptance, the database will be prepopulated with 100 top fantasy books (including Tolkien and other major fantasy authors), it is needed the profile `acc`.
+For Acceptance profile, the database will be prepopulated with 100 top fantasy books (including Tolkien and other major fantasy authors). The profile needed is `acc`.
 
 The API will be available at `http://localhost:8080`.
 
@@ -40,6 +39,5 @@ The API will be available at `http://localhost:8080`.
 
 ### Notes
 - Uses H2 database for development (see `src/main/resources/application.properties`).
-- Update database config for production use.
 
 ---
