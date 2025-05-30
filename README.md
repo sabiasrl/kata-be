@@ -41,3 +41,8 @@ The API will be available at `http://localhost:8080`.
 - Uses H2 database for development (see `src/main/resources/application.properties`).
 
 ---
+
+## License
+
+Proprietary. Copyright © 2025 Sabia Srl. All rights reserved.
+Unauthorized use is prohibited.
